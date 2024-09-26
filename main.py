@@ -1,9 +1,9 @@
 import tkinter
 
-window=tkinter.Tk()
-window.title("BMI Calculator")
-window.config(padx=30,pady=30)
-window.minsize(width=300,height=200)
+bmi_window=tkinter.Tk()
+bmi_window.title("BMI Calculator")
+bmi_window.config(padx=30,pady=30)
+bmi_window.minsize(width=300,height=200)
 
 #kg label
 kg_label=tkinter.Label(text="Enter Your Weight (kg)")
@@ -34,31 +34,24 @@ def calculate():
     else:
         try:
             BMI=float(my_kg) / (float(my_cm) / 100)**2
-            result_string=write_result(BMI)
-            btn_label.config(text=result_string)
+            if BMI <= 16:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are severely thin.")
+            elif 16 < BMI <= 17:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are moderately thin.")
+            elif 17 < BMI <= 18.5:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are mild thin.")
+            elif 18.5 < BMI <= 25:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are normal.")
+            elif 25 < BMI <= 30:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are overweight.")
+            elif 30 < BMI <= 35:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are obese class I.")
+            elif 35 < BMI <= 40:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are obese class II.")
+            elif BMI > 40:
+                btn_label.config(text=f"Your BMI is : {round(BMI,2)}. You are obese class III.")
         except:
             btn_label.config(text="Enter a valid number.")
-
-def write_result(BMI):
-    result_string=f"Your BMI is: {round(BMI,2)}. You are "
-    if BMI <=16:
-        result_string+="severely thin."
-    elif 16 < BMI <= 17:
-        result_string+="moderately thin."
-    elif 17 < BMI <= 18.5:
-        result_string+="mild thin."
-    elif 18.5 < BMI <= 25:
-        result_string+="normal."
-    elif 25 < BMI <= 30:
-        result_string+="overweight."
-    elif 30 < BMI <= 35:
-        result_string+="obese class I"
-    elif 35 < BMI <= 40:
-        result_string+="obese class II"
-    elif BMI > 40:
-        result_string+="obese class III"
-    return result_string
-
 
 #button
 clc_button=tkinter.Button(text="Calculate",command=calculate)
@@ -66,4 +59,4 @@ clc_button.pack()
 
 
 
-window.mainloop()
+bmi_window.mainloop()
